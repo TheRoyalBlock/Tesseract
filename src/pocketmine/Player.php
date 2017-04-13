@@ -2021,6 +2021,10 @@ class Player extends Human implements CommandSender, InventoryHolder, ChunkLoade
 				if($this->loggedIn){
 					break;
 				}
+				
+				$pk = new PlayStatusPacket();
+				$pk->status = PlayStatusPacket::LOGIN_SUCCESS;
+				$this->dataPacket($pk);
 
 				$this->username = TextFormat::clean($packet->username);
 				$this->displayName = $this->username;
@@ -2099,10 +2103,6 @@ class Player extends Human implements CommandSender, InventoryHolder, ChunkLoade
 
 					break;
 				}
-
-				$pk = new PlayStatusPacket();
-				$pk->status = PlayStatusPacket::LOGIN_SUCCESS;
-				$this->directDataPacket($pk);
 
 				$infoPacket = new ResourcePacksInfoPacket();
         		$infoPacket->resourcePackEntries = $this->server->getResourcePackManager()->getResourceStack();
